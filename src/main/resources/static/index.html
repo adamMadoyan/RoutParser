@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crawler Demo</title>
+
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/themes/default/style.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/loading.css">
+
+    <script src="webjars/jquery/3.1.1-1/jquery.js"></script>
+    <script src="webjars/angular/1.6.1/angular.js"></script>
+    <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.3/jstree.min.js"></script>
+    <script src="js/lib/jstree/ngJsTree.min.js"></script>
+
+</head>
+<body ng-app="Crawler" ng-controller="main">
+<div class="container">
+    <div class="c-loading" ng-show="show">
+        <div class="c-showbox">
+            <div class="loader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2"
+                            stroke-miterlimit="10"></circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-sm-offset-4 col-sm-4" align="center">
+            <h1>Crawler Demo</h1>
+
+            <div class="input-group">
+                <input class="form-control" type="search" ng-model="url">
+                <span class="input-group-btn">
+                <input class="btn btn-primary" type="button" ng-click="submit()" value="Go!">
+            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <div js-tree="basicConfig" ng-model="treeData" should-apply="applyModelChanges()" tree="basicTree"
+                     tree-events="ready:readyCB"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+
+<script>
+    var Crawler = Crawler || {};
+</script>
+
+<!-- App bootstrap js -->
+<script src="js/app.js"></script>
+
+<!-- App configs -->
+<script src="js/config/constants.js"></script>
+<script src="js/config/namespaces.js"></script>
+
+<!-- App controllers -->
+<script src="js/controllers/MainCtrl.js"></script>
+
+<!-- App services -->
+<script src="js/services/mainService.js"></script>
+
+</html>

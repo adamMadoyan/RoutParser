@@ -1,0 +1,10 @@
+<ng-include src="'/partials/pages/header.html'"></ng-include>
+<h1>User Home Page</h1>
+
+<div class="container">
+    <h2>Task List</h2>
+
+    <div class="list-group">
+        <task ng-repeat="task in user.tasks track by $index" task="task"></task>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="container">
+
+    <form novalidate class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input ng-model="data.username" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+               required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input ng-model="data.password" type="password" id="inputPassword" class="form-control" placeholder="Password"
+               required="">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary btn-block" ng-click="login()">Sign in</button>
+                <a ui-sref="new">Register</a>
+            </div>
+        </div>
+    </form>
+
+</div>
