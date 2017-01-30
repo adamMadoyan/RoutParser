@@ -52,6 +52,16 @@ public class IndexController {
         if (controller == null) {
             return null;
         }
+
+        // TODO move to util class
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            if (url.startsWith("www.")) {
+                url = "http://" + url;
+            } else {
+                url = "http://www." + url;
+            }
+        }
+
         controller.addSeed(url);
         controller.start(BasicCrawler.class, 1);
 

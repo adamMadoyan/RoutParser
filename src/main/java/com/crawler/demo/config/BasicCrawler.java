@@ -36,8 +36,6 @@ public class BasicCrawler extends WebCrawler {
 
     public static List<TreePage> result = new ArrayList<>();
 
-//    public static Pages parent;
-
     /**
      * You should implement this function to specify whether the given url
      * should be crawled or not (based on your crawling logic).
@@ -62,7 +60,6 @@ public class BasicCrawler extends WebCrawler {
         }
         TreePage treePage = new TreePage(String.valueOf(webURL.getDocid()), parentDocId, webURL.getURL(), true);
         result.add(treePage);
-
     }
 
     private void isPage(String docId) {
