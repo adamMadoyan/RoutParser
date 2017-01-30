@@ -31,7 +31,8 @@ import edu.uci.ics.crawler4j.url.WebURL;
  */
 public class BasicCrawler extends WebCrawler {
 
-    private static final Pattern IMAGE_EXTENSIONS = Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
+    private static final Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav" +
+            "|avi|mov|mpeg|ram|m4v|pdf|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
     public static List<TreePage> result = new ArrayList<>();
 
@@ -44,7 +45,7 @@ public class BasicCrawler extends WebCrawler {
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        return !IMAGE_EXTENSIONS.matcher(href).matches() && url.getURL().startsWith(referringPage.getWebURL().getURL());
+        return !FILTERS.matcher(href).matches() && url.getURL().startsWith(referringPage.getWebURL().getURL());
     }
 
     /**

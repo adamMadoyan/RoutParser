@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +19,15 @@ import java.util.List;
 @RequestMapping(value = "/rest", produces = MediaType.APPLICATION_JSON_VALUE)
 public class IndexController {
 
-    @Value("${storage.path}")
-    private String storagePath;
+    private CrawlController controller;
 
-    @PostMapping()
-    public List<TreePage> test(@RequestBody String url) {
+    public IndexController(@Value("${storage.path}") String storagePath) {
         try {
+            File dataOutput = new File(storagePath);
+            if (!dataOutput.exists() || !dataOutput.isDirectory()) {
+                dataOutput.mkdirs();
+            }
+
             CrawlConfig config = new CrawlConfig();
             config.setCrawlStorageFolder(storagePath);
             config.setPolitenessDelay(1000);
@@ -35,23 +39,29 @@ public class IndexController {
             PageFetcher pageFetcher = new PageFetcher(config);
             RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
             RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
-            CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
-
-            controller.addSeed(url);
-            controller.start(BasicCrawler.class, 1);
-
-            controller.waitUntilFinish();
-
-            List<TreePage> result = new ArrayList<>(BasicCrawler.result);
-
-            BasicCrawler.result.clear();
-
-            return result;
-
+            controller = new CrawlController(config, pageFetcher, robotstxtServer);
         } catch (Exception e) {
             e.printStackTrace();
+//            Do nothing.
         }
-        return null;
+    }
+
+    @PostMapping()
+    public List<TreePage> test(@RequestBody String url) {
+        // TODO check later
+        if (controller == null) {
+            return null;
+        }
+        controller.addSeed(url);
+        controller.start(BasicCrawler.class, 1);
+
+        controller.waitUntilFinish();
+
+        List<TreePage> result = new ArrayList<>(BasicCrawler.result);
+
+        // TODO replace with interface implementation
+        BasicCrawler.result.clear();
+        return result;
     }
 
 }
